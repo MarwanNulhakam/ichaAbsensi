@@ -23,7 +23,7 @@ public class Latihan1 extends javax.swing.JFrame {
     private String dbname = "absensi";
     private String dbUserName = "root";
     private String dbPassword = "";
-    
+    private int click=0;
     
     private Jam jam;
     private static class Model{
@@ -33,7 +33,7 @@ public class Latihan1 extends javax.swing.JFrame {
         public static final String getDataById = "SELECT * FROM pegawai WHERE niy = \'"+flag+"\'";
         
         public static final String insertAbsentData = "INSERT INTO kehadiran (tanggal, jam, niy, status, keterangan) VALUES ("+flag+")";
-        
+        public static int jamPulang = 10;
     }
     
     /**
@@ -41,12 +41,15 @@ public class Latihan1 extends javax.swing.JFrame {
      */
     public Latihan1() {
         initComponents();
+        this.setResizable(false);
         database = new DBConsole(ipServer,dbname,dbUserName,dbPassword);
         jam = new Jam(teksTanggal,teksWaktu);
         jam.start();
+        absenButton.setText(
+                Integer.parseInt(new java.text.SimpleDateFormat("HH").format(new java.util.Date())) < Model.jamPulang
+                ? "Absen Kehadiran" : "Absen Pulang"
+        );
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,7 +142,7 @@ public class Latihan1 extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(0, 255, 255));
 
-        absenButton.setText("Jam Datang");
+        absenButton.setText("Submit");
         absenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 absenButtonActionPerformed(evt);
@@ -191,7 +194,7 @@ public class Latihan1 extends javax.swing.JFrame {
         imagePanel1.setLayout(imagePanel1Layout);
         imagePanel1Layout.setHorizontalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         imagePanel1Layout.setVerticalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,8 +207,8 @@ public class Latihan1 extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imagePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,7 +265,7 @@ public class Latihan1 extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -284,12 +287,16 @@ public class Latihan1 extends javax.swing.JFrame {
     }//GEN-LAST:event_settingIconMouseReleased
 
     private void niyFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_niyFieldKeyPressed
+        click = 1;
         if(evt.getKeyCode() == 10)
             submitData();
     }//GEN-LAST:event_niyFieldKeyPressed
 
     private void niyFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_niyFieldMouseClicked
-        niyField.selectAll();
+        click = (click+1)%2;
+        System.out.println(click);
+        if(click!=0)
+            niyField.selectAll();
     }//GEN-LAST:event_niyFieldMouseClicked
 
     private void submitData(){

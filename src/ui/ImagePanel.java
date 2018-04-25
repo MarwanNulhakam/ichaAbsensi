@@ -23,6 +23,13 @@ public class ImagePanel extends javax.swing.JPanel{
     public ImagePanel(){
         image=new ImageIcon(getClass().getResource("/ui/logo_45_CL.jpg")).getImage();
     }
+    public ImagePanel(String src){
+        try{
+            image = new ImageIcon(getClass().getResource(src)).getImage();
+        }catch(Exception ex){
+            image = new ImageIcon(getClass().getResource("/ui/defaultPerson.png")).getImage();
+        }
+    }
     
     
     @Override
