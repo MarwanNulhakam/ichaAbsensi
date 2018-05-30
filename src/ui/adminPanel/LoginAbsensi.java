@@ -5,18 +5,20 @@ package ui.adminPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import database.*;
+import util.Model;
 /**
  *
  * @author Icha
  */
 public class LoginAbsensi extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form LoginAbsensi
      */
     public LoginAbsensi() {
         initComponents();
+        database = Toolbox.getDBConsole();
     }
 
     /**
@@ -36,15 +38,15 @@ public class LoginAbsensi extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        usernameField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         imagePanel1 = new ui.ImagePanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -95,9 +97,21 @@ public class LoginAbsensi extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyPressed(evt);
+            }
+        });
+
         jLabel9.setText("Password");
 
         jLabel8.setText("User Name");
+
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -109,11 +123,11 @@ public class LoginAbsensi extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41))
         );
         jPanel3Layout.setVerticalGroup(
@@ -121,12 +135,12 @@ public class LoginAbsensi extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -215,9 +229,39 @@ public class LoginAbsensi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        login();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void usernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyPressed
+        if(evt.getKeyCode()==10)
+            login();
+    }//GEN-LAST:event_usernameFieldKeyPressed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        if(evt.getKeyCode()==10)
+            login();
+    }//GEN-LAST:event_passwordFieldKeyPressed
+    
+    private void login(){
+        String query = Model.generateQuery(Model.getPassById, usernameField.getText());
+        String []result = database.doQuery(query);
+        
+        if(result==null){
+            Toolbox.alert("error while identifying user \""+usernameField.getText()+"\"");
+            passwordField.setText("");
+            return;
+        }
+        
+        if(result[0].equals(String.valueOf(passwordField.getPassword()))){
+            new AdminPanel().setVisible(true);
+            this.dispose();
+        }else{
+            Toolbox.alert("error while identifying user \""+usernameField.getText()+"\"");
+            passwordField.setText("");
+            return;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -253,6 +297,7 @@ public class LoginAbsensi extends javax.swing.JFrame {
         });
     }
 
+    private DBConsole database;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ui.ImagePanel imagePanel1;
     private javax.swing.JButton jButton1;
@@ -267,7 +312,7 @@ public class LoginAbsensi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }
