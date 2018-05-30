@@ -74,20 +74,14 @@ public class DBConsole {
 
     public void doStatement(String a){
         try{
-            System.out.println(a);
             state.executeUpdate(a);
             nothing_error&=true;
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
             String x= (ex.getMessage()).substring(0, 15);
             System.out.println(x);
-            if(x.equals("Duplicate entry")){
-                nothing_error&=true;
-            }
-            else{
-                nothing_error&=false;
-                javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
+            nothing_error&=false;
+            javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
 

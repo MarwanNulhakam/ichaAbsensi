@@ -107,7 +107,7 @@ public class SubmitNotificationFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SubmitNotificationFrame().setVisible(true);
+                new SubmitNotificationFrame("null").setVisible(true);
             }
         });
     }

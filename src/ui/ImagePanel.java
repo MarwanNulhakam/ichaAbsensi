@@ -16,28 +16,46 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Heni Edrianti
+ * @author Icha
  */
 public class ImagePanel extends javax.swing.JPanel{
     private Image image;
+    private String imagePath;
+    Graphics2D gd;
     public ImagePanel(){
-        image=new ImageIcon(getClass().getResource("/ui/logo_45_CL.jpg")).getImage();
+        imagePath = "/ui/logo_45_CL.jpg";
+        image=new ImageIcon(getClass().getResource(imagePath)).getImage();
     }
     public ImagePanel(String src){
         try{
             image = new ImageIcon(getClass().getResource(src)).getImage();
+            imagePath = src;
         }catch(Exception ex){
             image = new ImageIcon(getClass().getResource("/ui/defaultPerson.png")).getImage();
+            imagePath = "/ui/defaultPerson.png";
         }
     }
     
+    public String getImagePath(){
+        return imagePath;
+    }
+    
+    public void setImage(String src){
+        try{
+            image = new ImageIcon(getClass().getResource(src)).getImage();
+            imagePath = src;
+        }catch(Exception ex){
+            javax.swing.JOptionPane.showMessageDialog(null, "image cannot be selected","ERROR",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        gd.drawImage(image, 0,0,getWidth(),getHeight(),this);
+        gd.dispose();
+    }
     
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        Graphics2D gd=(Graphics2D)g.create();
+        gd=(Graphics2D)g.create();
         gd.drawImage(image, 0,0,getWidth(),getHeight(),this);
-        
         gd.dispose();
     }
 }
