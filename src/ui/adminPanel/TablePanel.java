@@ -5,17 +5,24 @@
  */
 package ui.adminPanel;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Heni Edrianti
  */
 public class TablePanel extends javax.swing.JPanel {
-
+    private DefaultTableModel tableModel;
     /**
      * Creates new form TablePanel
      */
     public TablePanel() {
         initComponents();
+        tableModel = (DefaultTableModel) table.getModel();
+        tableModel.addColumn("nama");
+        tableModel.addColumn("nama2");
+        tableModel.addColumn("nama3");
+        tableModel.addColumn("nama4");
     }
     
     /**
@@ -59,7 +66,7 @@ public class TablePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setColumnName(String []data){
-        
+        System.out.println("column = "+table.getColumnCount());
         if(table == null || table.getColumnCount() != data.length){
             javax.swing.JOptionPane.showMessageDialog(null,"number of column doesn't match number of data","ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
@@ -68,8 +75,21 @@ public class TablePanel extends javax.swing.JPanel {
         int i=0;
         for(String columnName:data){
             header.getColumnModel().getColumn(i).setHeaderValue(columnName);
+            i++;
         }
         header.repaint();
+    }
+    public int getSelectedRow(){
+        return table.getSelectedRow();
+    }
+    public void addRow(String[]data){
+        if(tableModel!=null)
+            tableModel.addRow(data);
+    }
+    public void removeSelectedRow(){
+        while(getSelectedRow()>=0){
+            tableModel.removeRow(getSelectedRow());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
