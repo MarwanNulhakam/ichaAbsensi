@@ -99,8 +99,6 @@ public class LoginAbsensi extends javax.swing.JFrame {
 
         jLabel8.setText("User Name");
 
-        jPasswordField1.setText("jPasswordField1");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
