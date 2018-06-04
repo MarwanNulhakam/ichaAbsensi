@@ -10,11 +10,11 @@ package ui.adminPanel;
  * @author Heni Edrianti
  */
 public class UpdateRegistration extends javax.swing.JFrame {
-
+    private int index = 0;
     /**
      * Creates new form UpdateRegistration
      */
-    public UpdateRegistration(String nspn, String nama, String jabatan, String photoPath) {
+    public UpdateRegistration(int index,String nspn, String nama, String jabatan, String photoPath) {
         tempPhotoPath = photoPath;
         tempNspn = nspn;
         tempNama = nama;
@@ -25,8 +25,8 @@ public class UpdateRegistration extends javax.swing.JFrame {
         jabatanField.setText(jabatan);
     }
     
-    public UpdateRegistration(database.DBConsole console,String nspn, String nama, String jabatan, String photoPath){
-        this(nspn, nama, jabatan, photoPath);
+    public UpdateRegistration(database.DBConsole console,int index,String nspn, String nama, String jabatan, String photoPath){
+        this(index,nspn, nama, jabatan, photoPath);
         this.console = console;
     }
     
@@ -59,7 +59,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("NSPN");
 
@@ -213,15 +213,33 @@ public class UpdateRegistration extends javax.swing.JFrame {
         if(console == null)
             initDatabase();
         String statements = "UPDATE pegawai SET "+
-                    "`nspn` = '"+nspnField.getText()+
+                    "`npsn` = '"+nspnField.getText()+
                     "',`nama` = '"+namaField.getText()+
                     "',`jabatan` = '"+jabatanField.getText()+
-                    "','`foto` = "+imagePanel.getImagePath()+
-                "' WHERE `nspn` = '"+tempNspn+"'";
+                    "',`photo` = '"+imagePanel.getImagePath()+
+                "' WHERE `npsn` = '"+tempNspn+"'";
 //        System.out.println(statements);
         console.doStatement(statements);
+        if(additionalTask!=null){
+            additionalTask.additionalTask(
+                    new String[]{
+                        "0",
+                        Integer.toString(index),
+                        nspnField.getText(),
+                        namaField.getText(),
+                        jabatanField.getText(),
+                        imagePanel.getImagePath()
+                    }
+            );
+            additionalTask = null;
+        }
+        this.dispose();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    public void setAdditionalTask(util.Task task){
+        additionalTask = task;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -252,7 +270,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateRegistration("","","","/ui/defaultPerson.png").setVisible(true);
+                new UpdateRegistration(0,"","","","/ui/defaultPerson.png").setVisible(true);
             }
         });
     }
@@ -274,4 +292,5 @@ public class UpdateRegistration extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     database.DBConsole console = null;
     String tempNspn, tempNama, tempJabatan, tempPhotoPath;
+    util.Task additionalTask=null;
 }

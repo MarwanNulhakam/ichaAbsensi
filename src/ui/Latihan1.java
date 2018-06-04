@@ -2,11 +2,13 @@ package ui;
 
 
 import ui.adminPanel.RegistrationFrame;
-import database.DBConsole;
+import database.*;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import ui.adminPanel.LoginAbsensi;
+import util.Model;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,30 +23,16 @@ import ui.adminPanel.LoginAbsensi;
 public class Latihan1 extends javax.swing.JFrame {
 
     private DBConsole database;
-    private String ipServer = "localhost";
-    private String dbname = "absensi";
-    private String dbUserName = "root";
-    private String dbPassword = "";
     private int click=0;
     
     private Jam jam;
-    private static class Model{
-        public static final String flag = "$$1";
-        
-        public static final String getNameById = "SELECT nama FROM pegawai WHERE niy = \'"+flag+"\'";
-        public static final String getDataById = "SELECT * FROM pegawai WHERE niy = \'"+flag+"\'";
-        
-        public static final String insertAbsentData = "INSERT INTO kehadiran (tanggal, jam, niy, status, keterangan) VALUES ("+flag+")";
-        public static int jamPulang = 10;
-    }
-    
     /**
      * Creates new form Latihan1
      */
     public Latihan1() {
         initComponents();
         this.setResizable(false);
-        database = new DBConsole(ipServer,dbname,dbUserName,dbPassword);
+        database = Toolbox.getDBConsole();
         jam = new Jam(teksTanggal,teksWaktu);
         jam.start();
         absenButton.setText(

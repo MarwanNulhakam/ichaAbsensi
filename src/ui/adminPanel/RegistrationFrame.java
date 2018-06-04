@@ -5,6 +5,7 @@
  */
 package ui.adminPanel;
 
+import database.Toolbox;
 import ui.ImagePanel;
 
 /**
@@ -211,6 +212,10 @@ public class RegistrationFrame extends javax.swing.JFrame {
                 imagePanel.getImagePath()+"')";
 //        System.out.println(statements);
         console.doStatement(statements);
+        if(console.noErrorFound()){
+            Toolbox.alert("success");
+            dispose();
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private boolean semuaFieldTerisi(){
@@ -228,8 +233,11 @@ public class RegistrationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void imagePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseClicked
-        System.out.println("clicked");
-        imagePanel = new ImagePanel("/ui/defaultPerson.png");
+        javax.swing.JFileChooser OpenFile = new javax.swing.JFileChooser();
+        OpenFile.showOpenDialog(null);
+        String location = OpenFile.getSelectedFile().getAbsolutePath();
+        imagePanel.setImage(location);
+        
     }//GEN-LAST:event_imagePanelMouseClicked
 
     /**
