@@ -16,13 +16,14 @@ public class TablePanel extends javax.swing.JPanel {
     /**
      * Creates new form TablePanel
      */
-    public TablePanel() {
+    public TablePanel(String[]columnName) {
         initComponents();
         tableModel = (DefaultTableModel) table.getModel();
-        tableModel.addColumn("nama");
-        tableModel.addColumn("nama2");
-        tableModel.addColumn("nama3");
-        tableModel.addColumn("nama4");
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        for (String val : columnName) {
+            tableModel.addColumn(val);
+        }
     }
     
     /**
@@ -37,6 +38,10 @@ public class TablePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
+        setPreferredSize(new java.awt.Dimension(654, 397));
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(654, 397));
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -45,23 +50,18 @@ public class TablePanel extends javax.swing.JPanel {
 
             }
         ));
+        table.setPreferredSize(new java.awt.Dimension(654, 397));
         jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -79,6 +79,9 @@ public class TablePanel extends javax.swing.JPanel {
         }
         header.repaint();
     }
+    public void addColumn(String col){
+        tableModel.addColumn(col);
+    }
     public int getSelectedRow(){
         return table.getSelectedRow();
     }
@@ -91,7 +94,21 @@ public class TablePanel extends javax.swing.JPanel {
             tableModel.removeRow(getSelectedRow());
         }
     }
-
+    public void clearRows(){
+        int numRows = tableModel.getRowCount();
+        for(int i=numRows-1;i>=0;i--){
+            tableModel.removeRow(i);
+        }
+    }
+    public String[]getRowValue(){
+        String []val = new String[tableModel.getColumnCount()];
+        
+        int row = getSelectedRow();
+        for(int i=0;i<val.length;i++){
+            val[i] = tableModel.getValueAt(row, i).toString();
+        }
+        return val;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;

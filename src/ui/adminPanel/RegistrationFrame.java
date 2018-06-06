@@ -14,17 +14,16 @@ import ui.ImagePanel;
  */
 public class RegistrationFrame extends javax.swing.JFrame {
 
+    private int index;
     /**
      * Creates new form RegistrationFrame
      */
     public RegistrationFrame() {
         initComponents();
+        this.setResizable(false);
+        console = Toolbox.getDBConsole();  
     }
     
-    public RegistrationFrame(database.DBConsole console){
-        this.console = console;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,14 +192,8 @@ public class RegistrationFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initDatabase(){
-        if(console==null){
-            console = new database.DBConsole("localhost","absensi","root","");
-        }
-    }
     
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        initDatabase();
         if(!semuaFieldTerisi()){
             javax.swing.JOptionPane.showMessageDialog(null, "field tidak boleh kosong", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
@@ -214,10 +207,17 @@ public class RegistrationFrame extends javax.swing.JFrame {
         console.doStatement(statements);
         if(console.noErrorFound()){
             Toolbox.alert("success");
-            dispose();
+            if(additionalTask!=null){
+                additionalTask.additionalTask(new String[1]);
+                additionalTask = null;
+            }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    public void setAdditionalTask(util.Task task){
+        additionalTask = task;
+    }
+    
     private boolean semuaFieldTerisi(){
         return !(niyField.getText().equals("") || niyField.getText().equals("") || niyField.getText().equals(""));
     }
@@ -275,6 +275,7 @@ public class RegistrationFrame extends javax.swing.JFrame {
         });
     }
 
+    private util.Task additionalTask;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnClear;

@@ -5,6 +5,8 @@
  */
 package ui.adminPanel;
 
+import database.Toolbox;
+
 /**
  *
  * @author Heni Edrianti
@@ -15,6 +17,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
      * Creates new form UpdateRegistration
      */
     public UpdateRegistration(int index,String nspn, String nama, String jabatan, String photoPath) {
+        this.console = Toolbox.getDBConsole();
         tempPhotoPath = photoPath;
         tempNspn = nspn;
         tempNama = nama;
@@ -23,19 +26,11 @@ public class UpdateRegistration extends javax.swing.JFrame {
         nspnField.setText(nspn);
         namaField.setText(nama);
         jabatanField.setText(jabatan);
+        this.setResizable(false);
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
     
-    public UpdateRegistration(database.DBConsole console,int index,String nspn, String nama, String jabatan, String photoPath){
-        this(index,nspn, nama, jabatan, photoPath);
-        this.console = console;
-    }
-    
-    private void initDatabase(){
-        if(console==null){
-            console = new database.DBConsole("localhost","absensi","root","");
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +56,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("NSPN");
+        jLabel1.setText("ID");
 
         jLabel2.setText("NAMA");
 
@@ -199,6 +194,13 @@ public class UpdateRegistration extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setLabel(String[]val){
+        jLabel1.setText(val[0]);
+        jLabel2.setText(val[1]);
+        jLabel3.setText(val[2]);
+
+    }
+    
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         nspnField.setText("");
         namaField.setText("");
@@ -210,8 +212,6 @@ public class UpdateRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if(console == null)
-            initDatabase();
         String statements = "UPDATE pegawai SET "+
                     "`npsn` = '"+nspnField.getText()+
                     "',`nama` = '"+namaField.getText()+

@@ -35,10 +35,9 @@ public class Latihan1 extends javax.swing.JFrame {
         database = Toolbox.getDBConsole();
         jam = new Jam(teksTanggal,teksWaktu);
         jam.start();
-        absenButton.setText(
-                Integer.parseInt(new java.text.SimpleDateFormat("HH").format(new java.util.Date())) < Model.jamPulang
-                ? "Absen Kehadiran" : "Absen Pulang"
-        );
+        absenButton.setText("Absen Sekarang");
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
 
     /**

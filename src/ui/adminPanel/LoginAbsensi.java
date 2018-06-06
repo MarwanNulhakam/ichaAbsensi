@@ -19,6 +19,8 @@ public class LoginAbsensi extends javax.swing.JFrame {
     public LoginAbsensi() {
         initComponents();
         database = Toolbox.getDBConsole();
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
 
     /**
@@ -253,7 +255,7 @@ public class LoginAbsensi extends javax.swing.JFrame {
         }
         
         if(result[0].equals(String.valueOf(passwordField.getPassword()))){
-            new AdminPanel().setVisible(true);
+            new AdminPanel(usernameField.getText()).setVisible(true);
             this.dispose();
         }else{
             Toolbox.alert("error while identifying user \""+usernameField.getText()+"\"");
