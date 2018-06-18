@@ -530,18 +530,23 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }// </editor-fold>//GEN-END:initComponents
 
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        currentPage = ADMIN_PAGE;
         index = 0;
         switchPanel(scrollPane);
         toggleView(true);
+        refreshAdmin();
+    }//GEN-LAST:event_adminButtonActionPerformed
+
+    private void refreshAdmin(){
         String []temp = Toolbox.getDBConsole().doQuery(Model.getAllAdmin);
         adminValue=new String[temp.length][4];
         for(int i=0;i<temp.length;i++){
             adminValue[i]=("-,"+temp[i]+",-,-").split(",");
         }
         refreshList();
-    }//GEN-LAST:event_adminButtonActionPerformed
-
+    }
     private void pegawaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pegawaiButtonActionPerformed
+        currentPage = USER_PAGE;
         index=0;
         toggleView(true);
         switchPanel(scrollPane);
@@ -550,6 +555,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }//GEN-LAST:event_pegawaiButtonActionPerformed
 
     private void absensiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_absensiButtonActionPerformed
+        currentPage = DATA_PAGE;
         setDefaultDate();
         refreshAbsensi();
     }//GEN-LAST:event_absensiButtonActionPerformed
@@ -573,9 +579,17 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
-        RegistrationFrame rf = new RegistrationFrame();
-        rf.setAdditionalTask(this);
-        rf.setVisible(true);
+        switch(currentPage){
+            case ADMIN_PAGE :   AdminRegistrationFrame rx = new AdminRegistrationFrame();
+                                rx.setAdditionalTask(this);
+                                rx.setVisible(true);
+                                break;
+            case USER_PAGE  :   RegistrationFrame rf = new RegistrationFrame();
+                                rf.setAdditionalTask(this);
+                                rf.setVisible(true);
+                                break;
+            case DATA_PAGE  :   break;
+        }
     }//GEN-LAST:event_addBtnMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -638,12 +652,14 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }
     
     public void updateValue(){
-        String query = Model.getAllPegawai;
-        adminValue = Toolbox.getDBConsole().doQuery(query, 0);
+        if(currentPage == ADMIN_PAGE)
+            refreshAdmin();
+        else
+            adminValue = Toolbox.getDBConsole().doQuery(Model.getAllPegawai, 0);
     }
     
     private void toggleView(boolean cond){
-        addNewPanel.setVisible(cond);
+//        addNewPanel.setVisible(cond);
         searchDatePanel.setVisible(!cond);
         editPanelTable.setVisible(!cond);
         prevNextPanel.setVisible(cond);
@@ -690,7 +706,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }
     private CardLayout card;
     private String[][] adminValue;
-    private int index=0, page = 0;
+    private int index=0, currentPage = 0;
     private ObjectList[] list=new ObjectList[10];
     private String date;
     // Variables declaration - do not modify//GEN-BEGIN:variables

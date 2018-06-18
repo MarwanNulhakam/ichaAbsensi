@@ -5,6 +5,7 @@
  */
 package ui.adminPanel;
 
+import database.Toolbox;
 import javax.swing.JOptionPane;
 
 /**
@@ -121,13 +122,22 @@ public class ObjectList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        UpdateRegistration r = new UpdateRegistration(index,value[0],value[1],value[2],value[3]);
+        UpdateRegistration r = new UpdateRegistration(index,value);
         r.setAdditionalTask(additionalTask);
         r.setVisible(true);
     }//GEN-LAST:event_editMouseClicked
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-        int opt = JOptionPane.showConfirmDialog(null, "Are you sure want to delete "+value[0]+" record?", "Delete",JOptionPane.YES_NO_OPTION);
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure want to delete "+value[1]+" record?", "Delete",JOptionPane.YES_NO_OPTION);
+        if(opt == JOptionPane.YES_OPTION){
+            String query =  value[0].equals("-")
+                            ? "DELETE FROM `administrator` WHERE `identifier` = '"+value[1]+"'"
+                            : "DELETE FROM `pegawai` WHERE `npsn` = '"+value[0]+"'";
+            Toolbox.getDBConsole().doStatement(query);
+            if(additionalTask!=null){
+                additionalTask.additionalTask(value);
+            }
+        }
     }//GEN-LAST:event_deleteMouseClicked
 
     public void setIndex(int index){

@@ -682,21 +682,6 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="ui.adminPanel.TablePanel" name="tablePanel">
-          <Properties>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[647, 310]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TablePanel(Model.absentByTodayTableHeader)"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card3"/>
-            </Constraint>
-          </Constraints>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -16,19 +16,34 @@ public class UpdateRegistration extends javax.swing.JFrame {
     /**
      * Creates new form UpdateRegistration
      */
-    public UpdateRegistration(int index,String nspn, String nama, String jabatan, String photoPath) {
-        this.console = Toolbox.getDBConsole();
-        tempPhotoPath = photoPath;
-        tempNspn = nspn;
-        tempNama = nama;
-        tempJabatan = jabatan;
+    public UpdateRegistration(int index,String[] value) {
         initComponents();
-        nspnField.setText(nspn);
-        namaField.setText(nama);
-        jabatanField.setText(jabatan);
-        this.setResizable(false);
+        tempPhotoPath = value[3];
+        tempNspn = value[0];
+        tempNama = value[1];
+        tempJabatan = value[2];
+        
+        this.console = Toolbox.getDBConsole();
+        if(value[0].equals("-")){
+            String[]label = {"Name","Password","re-enter Password"};
+            setFieldLabel(label);
+            System.out.println("SELECT * FROM `administrator` WHERE `identifier` = '"+value[1]+"'");
+            String [][]temp = console.doQuery("SELECT * FROM `administrator` WHERE `identifier` = '"+value[1]+"'",0);
+            value[0]=temp[0][0];
+            value[1]=temp[0][1];
+            value[2]=temp[0][1];
+            value[3]=temp[0][2];
+        }
+        setValue(value);
+//        this.setResizable(false);
         java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
+    
+    private void setValue(String []value){
+        nspnField.setText(value[0]);
+        namaField.setText(value[1]);
+        jabatanField.setText(value[2]);
     }
     
     /**
@@ -55,6 +70,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(700, 229));
 
         jLabel1.setText("ID");
 
@@ -74,7 +90,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nspnField, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(nspnField)
                     .addComponent(namaField, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jabatanField, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
@@ -166,15 +182,15 @@ public class UpdateRegistration extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addGap(25, 25, 25))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +210,13 @@ public class UpdateRegistration extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setLabel(String[]val){
+    public void setFieldLabel(String[]val){
+        if(val.length<3)
+            return;
+        System.out.println(val[0]+", "+val[1]+", "+val[2]);
         jLabel1.setText(val[0]);
         jLabel2.setText(val[1]);
         jLabel3.setText(val[2]);
-
     }
     
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -212,12 +230,27 @@ public class UpdateRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        String statements = "UPDATE pegawai SET "+
+        if(nspnField.getText().length()<2 || namaField.getText().length()<2){
+            Toolbox.alert("Field tidak boleh kosong");
+            return;
+        }
+        if(tempNspn.equals("-") && (!namaField.getText().equals(jabatanField.getText()))){
+            Toolbox.alert("Password tidak cocok");
+            return;
+        }
+        String statements = tempNspn.equals("-")
+                ?   "UPDATE administrator SET "+
+                    "`identifier` = '"+nspnField.getText()+
+                    "',`password` = '"+namaField.getText()+
+                    "',`photo` = '"+imagePanel.getImagePath()+
+                    "' WHERE `identifier` = '"+tempNama+"'"
+                :   "UPDATE pegawai SET "+
                     "`npsn` = '"+nspnField.getText()+
                     "',`nama` = '"+namaField.getText()+
                     "',`jabatan` = '"+jabatanField.getText()+
                     "',`photo` = '"+imagePanel.getImagePath()+
-                "' WHERE `npsn` = '"+tempNspn+"'";
+                    "' WHERE `npsn` = '"+tempNspn+"'"
+                ;
 //        System.out.println(statements);
         console.doStatement(statements);
         if(additionalTask!=null){
@@ -270,7 +303,7 @@ public class UpdateRegistration extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateRegistration(0,"","","","/ui/defaultPerson.png").setVisible(true);
+                new UpdateRegistration(0,new String[]{"-","marwan","temp","/ui/defaultPerson.png"}).setVisible(true);
             }
         });
     }
