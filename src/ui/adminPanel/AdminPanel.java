@@ -47,6 +47,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setDefaultDate();
+        currentPage = DATA_PAGE;
         refreshAbsensi();
         
     }
@@ -588,7 +589,10 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
                                 rf.setAdditionalTask(this);
                                 rf.setVisible(true);
                                 break;
-            case DATA_PAGE  :   break;
+            case DATA_PAGE  :   AdminAbsensiPanel arf = new AdminAbsensiPanel();
+                                arf.setAdditionalTask(this);
+                                arf.setVisible(true);
+                                break;
         }
     }//GEN-LAST:event_addBtnMouseClicked
 
@@ -667,8 +671,13 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     
     @Override
     public void additionalTask(String[]param) {
-        updateValue();
-        refreshList();
+        if(currentPage == DATA_PAGE){
+            refreshAbsensi();
+        }
+        else{
+            updateValue();
+            refreshList();
+        }
     }
     /**
      * @param args the command line arguments
