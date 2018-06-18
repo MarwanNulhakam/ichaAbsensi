@@ -22,6 +22,8 @@ public class RegistrationFrame extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         console = Toolbox.getDBConsole();  
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
     
     /**
@@ -111,7 +113,7 @@ public class RegistrationFrame extends javax.swing.JFrame {
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addGap(0, 136, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,12 +208,13 @@ public class RegistrationFrame extends javax.swing.JFrame {
 //        System.out.println(statements);
         console.doStatement(statements);
         if(console.noErrorFound()){
-            Toolbox.alert("success");
+            Toolbox.info("success");
             if(additionalTask!=null){
                 additionalTask.additionalTask(new String[1]);
                 additionalTask = null;
             }
         }
+        this.dispose();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     public void setAdditionalTask(util.Task task){
@@ -219,7 +222,7 @@ public class RegistrationFrame extends javax.swing.JFrame {
     }
     
     private boolean semuaFieldTerisi(){
-        return !(niyField.getText().equals("") || niyField.getText().equals("") || niyField.getText().equals(""));
+        return !(niyField.getText().equals("") || namaField.getText().equals("") || jabatanField.getText().equals(""));
     }
     
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
