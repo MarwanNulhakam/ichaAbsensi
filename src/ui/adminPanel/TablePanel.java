@@ -13,15 +13,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TablePanel extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
+    private String[]tableHeader = {"ID","NPSN","Nama","Jam","Status","Keterangan"};
     /**
      * Creates new form TablePanel
      */
-    public TablePanel(String[]columnName) {
+
+    public TablePanel() {
         initComponents();
         tableModel = (DefaultTableModel) table.getModel();
         java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        for (String val : columnName) {
+        for (String val : tableHeader) {
             tableModel.addColumn(val);
         }
     }
@@ -57,11 +59,11 @@ public class TablePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

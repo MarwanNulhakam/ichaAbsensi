@@ -30,7 +30,7 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dataPanel" pref="659" max="32767" attributes="0"/>
+                          <Component id="dataPanel" max="32767" attributes="0"/>
                           <Component id="footer" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -626,7 +626,7 @@
                               <Component id="list09" min="-2" max="-2" attributes="0"/>
                               <Component id="list10" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -682,6 +682,13 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="ui.adminPanel.TablePanel" name="tablePanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="card3"/>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

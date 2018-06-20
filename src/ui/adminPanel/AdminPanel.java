@@ -120,7 +120,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         list08 = new ui.adminPanel.ObjectList();
         list09 = new ui.adminPanel.ObjectList();
         list10 = new ui.adminPanel.ObjectList();
-        tablePanel = new TablePanel(Model.absentByTodayTableHeader);
+        tablePanel = new ui.adminPanel.TablePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -463,7 +463,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
                     .addComponent(list08, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(list09, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(list10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,8 +493,6 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         scrollPane.setViewportView(jPanel4);
 
         dataPanel.add(scrollPane, "card2");
-
-        tablePanel.setPreferredSize(new java.awt.Dimension(647, 310));
         dataPanel.add(tablePanel, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -508,7 +506,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                            .addComponent(dataPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -557,6 +555,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
 
     private void absensiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_absensiButtonActionPerformed
         currentPage = DATA_PAGE;
+        switchPanel(tablePanel);
         setDefaultDate();
         refreshAbsensi();
     }//GEN-LAST:event_absensiButtonActionPerformed
@@ -600,8 +599,8 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         while(tablePanel.getSelectedRow()>=0){
             String[]val = tablePanel.getRowValue();
             Toolbox.getDBConsole().doStatement("DELETE FROM kehadiran WHERE `id`='"+val[0]+"'");
+            refreshAbsensi();
         }
-        refreshAbsensi();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
