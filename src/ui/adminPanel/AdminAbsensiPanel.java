@@ -107,7 +107,11 @@ public class AdminAbsensiPanel extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void clearField(){
+        npsn.setText("");
+        status.setSelectedIndex(0);
+        keterangan.setText("");
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(npsn.getText().length()<2)
             return;
@@ -120,6 +124,7 @@ public class AdminAbsensiPanel extends javax.swing.JFrame {
         if(additionalTask!=null){
             additionalTask.additionalTask(new String[1]);
         }
+        clearField();
     }//GEN-LAST:event_jButton1ActionPerformed
     private String collectAbsentValue(){
         String dateTime[],niy,status,keterangan;
