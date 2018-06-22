@@ -118,10 +118,11 @@ public class DBConsole {
         try{
             result = state.executeQuery(query);
             if(!result.next()){
+                System.out.println("result is null");
                 return null;
             }
             rs=result;
-            int y= numberOfColumn();
+            int y= QueryAttribute > 1 ? QueryAttribute : numberOfColumn();
             result.last();
             x=result.getRow();
             Result = new String[x][y];
@@ -130,6 +131,10 @@ public class DBConsole {
             int i=0;
             do{                
                 for(int j=0;j<y;j++){
+                    if(result.getString(j+1)==null){
+                        Result[i][j]="-";
+                        continue;
+                    }
                     Result[i][j]=result.getString(j+1);
                 }
 //                while(result.getString(j)!=null){

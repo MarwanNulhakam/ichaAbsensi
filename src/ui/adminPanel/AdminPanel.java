@@ -100,6 +100,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         pegawaiButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         absensiButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
         prevNextPanel = new javax.swing.JPanel();
         btnPrev = new javax.swing.JButton();
@@ -334,6 +335,13 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
             }
         });
 
+        jButton1.setText("Download Rekap Absensi");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -342,6 +350,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
             .addComponent(pegawaiButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(absensiButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,6 +360,8 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
                 .addComponent(pegawaiButton)
                 .addGap(38, 38, 38)
                 .addComponent(absensiButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -629,6 +640,10 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         Toolbox.getDBConsole().doStatement(statements);
         refreshAbsensi();
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void deactivateList(){
         for(int i=0;i<10;i++){
@@ -733,6 +748,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     private javax.swing.JPanel footer;
     private ui.ImagePanel imagePanel1;
     private ui.ImagePanel imagePanel2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
