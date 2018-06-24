@@ -136,7 +136,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="103" max="32767" attributes="0"/>
+                  <EmptySpace pref="136" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel4" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -218,8 +218,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="niyField" max="32767" attributes="0"/>
                           <Component id="absenButton" min="-2" pref="243" max="-2" attributes="0"/>
@@ -262,7 +263,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="12" style="3"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="NO.Induk Yayasan"/>
+                <Property name="text" type="java.lang.String" value="NPSN :"/>
               </Properties>
             </Component>
           </SubComponents>

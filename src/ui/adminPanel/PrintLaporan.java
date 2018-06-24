@@ -52,7 +52,7 @@ public class PrintLaporan extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         export = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setText("Rekap Laporan bulan: ");

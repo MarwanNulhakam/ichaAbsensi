@@ -642,7 +642,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        new PrintLaporan().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void deactivateList(){
