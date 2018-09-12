@@ -8,7 +8,6 @@ package ui.adminPanel;
 import database.Toolbox;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
 import util.Model;
 
 /**
@@ -232,8 +231,8 @@ public class PrintLaporan extends javax.swing.JFrame {
 //                + "AND tanggal LIKE '"+date+"%'";
                 "select a.tanggal as tanggal ,b.jam as jam_datang, c.jam as jam_pulang, d.status, d.keterangan " +
                 "from (SELECT DISTINCT tanggal from kehadiran WHERE tanggal LIKE \""+date+"%\" AND npsn = '"+temp[0][0]+"') as a " +
-                "LEFT JOIN (SELECT tanggal, jam FROM kehadiran WHERE tanggal LIKE \""+date+"%\" AND jam < '09.30' AND npsn = '"+temp[0][0]+"') as b ON a.tanggal = b.tanggal " +
-                "LEFT JOIN (SELECT tanggal, jam FROM kehadiran WHERE tanggal LIKE \""+date+"%\" AND jam >= '09.30' AND npsn = '"+temp[0][0]+"') as c ON a.tanggal = c.tanggal " +
+                "LEFT JOIN (SELECT tanggal, jam FROM kehadiran WHERE tanggal LIKE \""+date+"%\" AND jam < '09:30:00' AND npsn = '"+temp[0][0]+"') as b ON a.tanggal = b.tanggal " +
+                "LEFT JOIN (SELECT tanggal, jam FROM kehadiran WHERE tanggal LIKE \""+date+"%\" AND jam >= '09:30:00' AND npsn = '"+temp[0][0]+"') as c ON a.tanggal = c.tanggal " +
                 "LEFT JOIN (SELECT tanggal, status, keterangan FROM kehadiran WHERE tanggal LIKE \""+date+"%\" AND status != 'hadir' AND npsn = '"+temp[0][0]+"' AND jam > '23.00') as d ON a.tanggal = d.tanggal ORDER BY a.tanggal";
         String []identitas = new String[]{temp[0][0],name,listBulan.getSelectedItem().toString()};
         String [][]kehadiran = Toolbox.getDBConsole().doQuery(queryKehadiran, 5);

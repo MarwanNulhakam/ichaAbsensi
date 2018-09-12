@@ -20,6 +20,10 @@ public class Model {
         public static final String []absentByTodayTableHeader = {"ID","npsn","nama","jam","status","keterangan"};
         public static final String getAbsentByDay = "SELECT k.id,k.npsn,p.nama,k.jam,k.status,k.keterangan FROM kehadiran as k,pegawai as p WHERE k.npsn=p.npsn AND k.tanggal=\""+flag+"\" ORDER BY k.jam ASC";
         public static final String getAllPegawaiName = "SELECT `nama` FROM `pegawai` ORDER BY `nama`";
+        /*SELECT k.id as id,k.npsn as npsn,k.nama as nama,k.jam as jam_datang, l.jam as jam_pulang, m.status,m.keterangan FROM (SELECT k.id as id,k.npsn as npsn,p.nama as nama,k.jam, k.keterangan FROM kehadiran as k,pegawai as p WHERE k.npsn=p.npsn AND k.tanggal='2018-06-06' AND k.jam < '09:00:00') as k
+LEFT JOIN (SELECT npsn, jam FROM kehadiran where tanggal='2018-06-06' AND jam >= '09:00:00') as l ON k.npsn=l.npsn
+LEFT JOIN (SELECT `npsn`,`status`,`keterangan` FROM kehadiran WHERE tanggal='2018-06-06' AND `status`!='datang' AND `status`!='pulang') as m ON k.npsn = m.npsn
+ORDER BY k.jam ASC;*/
         
         public static final String insertAbsentData = "INSERT INTO kehadiran (tanggal, jam, npsn, status, keterangan) VALUES ("+flag+")";
         public static int jamPulang = 14;

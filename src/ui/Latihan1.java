@@ -23,8 +23,8 @@ import util.Model;
 public class Latihan1 extends javax.swing.JFrame {
 
     private DBConsole database;
-    private int click=0;
-    
+    private int click=0,clickStatus=0;
+    private String[] status={"datang","pulang"};
     private Jam jam;
     /**
      * Creates new form Latihan1
@@ -35,7 +35,7 @@ public class Latihan1 extends javax.swing.JFrame {
         database = Toolbox.getDBConsole();
         jam = new Jam(teksTanggal,teksWaktu);
         jam.start();
-        absenButton.setText("Absen Sekarang");
+        absenButton.setText("Absen datang");
         java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
@@ -61,6 +61,7 @@ public class Latihan1 extends javax.swing.JFrame {
         absenButton = new javax.swing.JButton();
         niyField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -102,7 +103,7 @@ public class Latihan1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(settingIcon)
@@ -154,7 +155,7 @@ public class Latihan1 extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(0, 255, 255));
 
-        absenButton.setText("Submit");
+        absenButton.setText("Absen Datang");
         absenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 absenButtonActionPerformed(evt);
@@ -180,6 +181,13 @@ public class Latihan1 extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jLabel4.setText("NPSN :");
 
+        jButton1.setText(">");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -189,8 +197,11 @@ public class Latihan1 extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(niyField)
-                    .addComponent(absenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(absenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(niyField)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +210,9 @@ public class Latihan1 extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(niyField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(absenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(absenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -208,7 +221,7 @@ public class Latihan1 extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
+                .addContainerGap(137, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -241,7 +254,7 @@ public class Latihan1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -301,6 +314,11 @@ public class Latihan1 extends javax.swing.JFrame {
         new LoginAbsensi().setVisible(true);
     }//GEN-LAST:event_settingIconMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clickStatus = (clickStatus+1)%2;
+        absenButton.setText("Absen "+this.status[clickStatus]);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void submitData(){
         if(niyField.getText().length()<2)
             return;
@@ -309,10 +327,18 @@ public class Latihan1 extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "NIY "+key+" tidak terdaftar", "INFO", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
+        String[]data = collectAbsentValue().split(",");
+        String nama = database.doQuery(Model.getNameById.replace(Model.flag, key))[0];
+        if(database.doQuery("SELECT * FROM kehadiran WHERE npsn = "+data[2]+" AND tanggal="+data[0]+" AND status="+data[3])!=null){
+            javax.swing.JOptionPane.showMessageDialog(null, "Maaf "+nama+",\nAnda sudah mengisi absen "+this.status[clickStatus], "ALERT", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         database.doStatement(insertQueryBuilder());
         if(database.noErrorFound()){
-            String nama = database.doQuery(Model.getNameById.replace(Model.flag, key))[0];
-            javax.swing.JOptionPane.showMessageDialog(null, "Selamat datang "+nama+",\nTerima kasih telah mengisi absen", "SUCCESS", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            String msg = clickStatus == 0? 
+                    "Selamat datang "+nama+",\nTerima kasih telah mengisi absen":
+                    "Terima kasih "+nama+",\nSemoga hari anda menyenangkan";
+            javax.swing.JOptionPane.showMessageDialog(null, msg, "SUCCESS", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             niyField.setText("");
         }
     }
@@ -330,7 +356,7 @@ public class Latihan1 extends javax.swing.JFrame {
         
         dateTime = (new java.text.SimpleDateFormat("yyyy-MM-dd#HH:mm:ss").format(new java.util.Date())).split("#");
         niy = niyField.getText();
-        status = "hadir";
+        status = this.status[clickStatus];
         keterangan = "-";
         return "\'"+dateTime[0]+"\',\'"+dateTime[1]+"\',\'"+niy+"\',\'"+status+"\',\'"+keterangan+"\'";
     }
@@ -373,6 +399,7 @@ public class Latihan1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton absenButton;
     private ui.ImagePanel imagePanel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

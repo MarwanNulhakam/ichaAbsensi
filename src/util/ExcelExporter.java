@@ -14,8 +14,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 /**
  *
@@ -38,6 +40,8 @@ public class ExcelExporter {
         sheet.setColumnWidth(3, (int)(88*36.5));
         sheet.setColumnWidth(4, (int)(112*36.5));
         sheet.setColumnWidth(5, (int)(180*36.5));
+        
+        topCenterStyle = workbook.createCellStyle();
     }
     
     public ExcelExporter(Object[]identity,Object[][]data){
@@ -169,5 +173,5 @@ public class ExcelExporter {
     private XSSFSheet sheet;
     private Row row;
     private Cell cell;
-    
+    private XSSFCellStyle topCenterStyle;
 }

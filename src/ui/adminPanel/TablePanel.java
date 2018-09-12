@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TablePanel extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
-    private String[]tableHeader = {"ID","NPSN","Nama","Jam","Status","Keterangan"};
+    private String[]tableHeader = {"ID","NPSN","Nama","Jam Datang","Jam Pulang","Status","Keterangan"};
     /**
      * Creates new form TablePanel
      */

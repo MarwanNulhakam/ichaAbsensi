@@ -632,9 +632,9 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         
         String statements = "UPDATE kehadiran SET "+
                     "`npsn` = '"+val[1]+
-                    "',`jam` = '"+val[3]+
-                    "',`status` = '"+val[4]+
-                    "',`keterangan` = '"+val[5]+
+//                    "',`jam` = '"+val[3]+
+                    "',`status` = '"+val[5]+
+                    "',`keterangan` = '"+val[6]+
                 "' WHERE `id` = '"+val[0]+"'";
         System.out.println(statements);
         Toolbox.getDBConsole().doStatement(statements);
@@ -644,7 +644,7 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new PrintLaporan().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void deactivateList(){
         for(int i=0;i<10;i++){
             list[i].setVisible(false);
@@ -654,8 +654,12 @@ public class AdminPanel extends javax.swing.JFrame implements util.Task{
         switchPanel(tablePanel);
         tablePanel.clearRows();
         toggleView(false);
-        String query = Model.getAbsentByDay.replace(Model.flag, date);
-        adminValue = Toolbox.getDBConsole().doQuery(query, 0);
+        String query =  "SELECT k.id as id,k.npsn as npsn,k.nama as nama,k.jam, l.jam, m.status, m.keterangan "+
+                        "FROM (SELECT k.id as id,k.npsn as npsn,p.nama as nama,k.jam, k.keterangan FROM kehadiran as k,pegawai as p WHERE k.npsn=p.npsn AND k.tanggal='"+date+"' AND k.status = 'datang') as k\n" +
+                        "LEFT JOIN (SELECT npsn, jam FROM kehadiran where tanggal='"+date+"' AND status = 'pulang') as l ON k.npsn=l.npsn\n" +
+                        "LEFT JOIN (SELECT `npsn`,`status`,`keterangan` FROM kehadiran WHERE tanggal='"+date+"' AND `status`!='datang' AND `status`!='pulang') as m ON k.npsn = m.npsn\n" +
+                        "ORDER BY k.jam ASC;";
+        adminValue = Toolbox.getDBConsole().doQuery(query, 7);
         if(adminValue==null)
             return;
         for (String[] data : adminValue) {
